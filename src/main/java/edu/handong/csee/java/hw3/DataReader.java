@@ -1,25 +1,27 @@
 package edu.handong.csee.java.hw3;
-
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DataReader {
 	
-	
 public static void main(String args[]) { // main method
 		
 		DataReader dataReader = new DataReader();
-		dataReader.getData(args[0]); // get data from command line
-
+		System.out.println(args[0]);
+		
+		dataReader.getData(args[0]); // get data from command line // #0 is it only way to get args[0] from CLI, with the main method containing getData method?
+		// can't I divide main and DataReader and still get the args[0] data?
+	
+		// #1 how does this work?
 	} // run as - run configuration - arguments - C:\Chat-Java-20180519T015546Z-001\Chat-Java (where the chat files are)
 	
-
-
-	
-	public ArrayList<String> getData(String strDir) {
+	public ArrayList<String> getData(String strDir) { // input is from args[0].
 		// (1) get directory
 		File myDir = getDirectory(strDir);
 
@@ -27,55 +29,54 @@ public static void main(String args[]) { // main method
 		File[] files = getListOfFilesFromDirectory(myDir);
 
 		// (3) read strings from the file.
-		ArrayList<String> messages = readFiles(files);
+		ArrayList<String> messages = extractRawString(files);
 
 		return messages;
 	}
 
-	private File getDirectory(String strDir) // 디렉토리를 리턴해주는 메소드
+	private File getDirectory(String strDir) // input from args[0]
 	{
 		File myDirectory = new File(strDir);
-		return myDirectory;
+		return myDirectory; // returns directory(location) of the file.
 	}
 
-	private File[] getListOfFilesFromDirectory(File dataDir) {
-		// dataDir.list(); // list()는 스트링 어레이를 리턴함. 근데 우리는 File[] 어레이를 원함.
+	private File[] getListOfFilesFromDirectory(File dataDir) { // getting files from the directory.
+		// dataDir.list();
 
-		for (File file : dataDir.listFiles()) // 디렉토리 찾은걸 보여줌
+		for (File file : dataDir.listFiles())
 		{
 			System.out.println(file.getAbsolutePath());
 		}
-		return dataDir.listFiles(); // 이걸 찾던 것이다!
+		return dataDir.listFiles(); // returns an array of files. (Object type is File)
 	}
 
-	private ArrayList<String> readFiles(File[] files) {
-		ArrayList<String> messages = new ArrayList<String>();
+	private ArrayList<String> extractRawString(File[] files) {
 		
-		String fileName = files[0].getName(); // args[0]에서 받아오는것과 같음
-		System.out.println("FileName : " + fileName);
+		ArrayList<String> messages = new ArrayList<String>(); // actual ArrayList<String> to get the raw strings.
 		
-		Scanner inputStream = null;
-		System.out.println("The file "+ fileName+"\ncontains the following lines : \n");
+		for (int i = 0; i<files.length ; i++)
+		{
+			String fileName = files[i].getAbsolutePath(); // transform the filename into String.
 		
-		try {
-			inputStream = new Scanner(new File(fileName));
-		} catch (FileNotFoundException e) {
-			System.out.println ("Error opening a file : "+fileName);
-			System.exit(0);
+			try {
+		         BufferedReader br = new BufferedReader(
+		                  new InputStreamReader(
+		                               new FileInputStream(fileName)));
+		         String thisLine = null;
+		         
+		         while ((thisLine = br.readLine()) != null) { // while loop begins here
+		            messages.add(thisLine);
+		            //System.out.println(messages.get(i));
+		            System.out.println(thisLine);
+		         }
+		         br.close();
+		      } catch (IOException e) {
+		         e.printStackTrace();
+		      } // end while 
+			
 		}
-		
-		while (inputStream.hasNextLine()) {
-		
-			String line = inputStream.nextLine();
-			messages.add(line);
-			System.out.println(line);
-		}
-		inputStream.close();
-	
-		
-		return messages;
+
+		return messages; // returning the raw Strings, contained in the ArrayList<String>, named as 'messages'.
 	}
 	
-	
-
 }

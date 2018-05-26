@@ -11,6 +11,11 @@ plugins {
     id 'java-library'
 }
 
+apply plugin: 'application'
+mainClassName = "edu.handong.csee.java.hw3.DataReader"
+
+
+	// add apply plugin here!
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api 'org.apache.commons:commons-math3:3.6.1'
@@ -20,6 +25,13 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+    
+    
+    // it is added!
+    
+    // https://mvnrepository.com/artifact/com.opencsv/opencsv
+	compile group: 'com.opencsv', name: 'opencsv', version: '4.1'
+    
 }
 
 // In this section you declare where to find the dependencies of your project
