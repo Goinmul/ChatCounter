@@ -11,14 +11,18 @@ import java.util.Scanner;
 public class DataReader {
 	
 public static void main(String args[]) { // main method
+	
+		ArrayList<String> array1 = new ArrayList<String>();
 		
+		RawDataRefiner refiner = new RawDataRefiner();
 		DataReader dataReader = new DataReader();
-		System.out.println(args[0]);
+		//System.out.println(args[0]); //check if the path is right
 		
-		dataReader.getData(args[0]); // get data from command line // #0 is it only way to get args[0] from CLI, with the main method containing getData method?
+		array1 = dataReader.getData(args[0]); // get data from command line // #0 is it only way to get args[0] from CLI, with the main method containing getData method?
 		// can't I divide main and DataReader and still get the args[0] data?
 	
-		// #1 how does this work?
+		//refiner.divider(array1);
+		
 	} // run as - run configuration - arguments - C:\Chat-Java-20180519T015546Z-001\Chat-Java (where the chat files are)
 	
 	public ArrayList<String> getData(String strDir) { // input is from args[0].
