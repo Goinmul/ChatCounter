@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DataReader {
 	
@@ -19,8 +21,7 @@ public static void main(String args[]) { // main method
 		//System.out.println(args[0]); //check if the path is right
 		
 		array1 = dataReader.getData(args[0]); // get data from command line // #0 is it only way to get args[0] from CLI, with the main method containing getData method?
-		// can't I divide main and DataReader and still get the args[0] data?
-	
+		// can't I divide main and DataReader and still get the args[0] data
 		//refiner.divider(array1);
 		
 	} // run as - run configuration - arguments - C:\Chat-Java-20180519T015546Z-001\Chat-Java (where the chat files are)
@@ -82,5 +83,6 @@ public static void main(String args[]) { // main method
 
 		return messages; // returning the raw Strings, contained in the ArrayList<String>, named as 'messages'.
 	}
-	
+
+
 }
